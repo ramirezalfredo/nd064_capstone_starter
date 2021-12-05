@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: udacityshop-prod
+  namespace: argocd
+spec:
+  destination:
+    namespace: prod
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    # path to the folder with the YAML manifests
+    path: kubernetes-manifests/prod
+    repoURL: https://github.com/ramirezalfredo/nd064_capstone_starter
+    targetRevision: HEAD
+  # Sync policy
+  syncPolicy: {}
