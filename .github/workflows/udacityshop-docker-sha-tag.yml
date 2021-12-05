@@ -26,13 +26,16 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
-        name: Docker meta frontend
+        name: Docker meta
         id: meta
         uses: docker/metadata-action@v3
         with:
           # list of Docker images to use as base name for tags
           images: |
             aramirezg/frontend
+            aramirezg/productcatalogservice
+            aramirezg/currencyservice
+            aramirezg/adservice
           # generate Docker tags based on the following events/attributes
           tags: |
             type=sha
@@ -45,17 +48,6 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
       -
-        name: Docker meta productcatalogservice
-        id: meta
-        uses: docker/metadata-action@v3
-        with:
-          # list of Docker images to use as base name for tags
-          images: |
-            aramirezg/productcatalogservice
-          # generate Docker tags based on the following events/attributes
-          tags: |
-            type=sha
-      -
         name: Build and push productcatalogservice
         uses: docker/build-push-action@v2
         with:
@@ -64,17 +56,6 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
       -
-        name: Docker meta currencyservice
-        id: meta
-        uses: docker/metadata-action@v3
-        with:
-          # list of Docker images to use as base name for tags
-          images: |
-            aramirezg/currencyservice
-          # generate Docker tags based on the following events/attributes
-          tags: |
-            type=sha
-      -
         name: Build and push currencyservice
         uses: docker/build-push-action@v2
         with:
@@ -82,17 +63,6 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: ${{ steps.meta.outputs.tags }}
-      -
-        name: Docker meta adservice
-        id: meta
-        uses: docker/metadata-action@v3
-        with:
-          # list of Docker images to use as base name for tags
-          images: |
-            aramirezg/adservice
-          # generate Docker tags based on the following events/attributes
-          tags: |
-            type=sha
       -
         name: Build and push adservice
         uses: docker/build-push-action@v2
