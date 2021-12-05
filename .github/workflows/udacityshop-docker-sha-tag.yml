@@ -39,7 +39,7 @@ jobs:
           context: ./src/frontend
           platforms: linux/amd64
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: ${{ steps.meta-frontend.outputs.tags }}
       -
         name: Docker meta
         id: meta-productcatalogservice
@@ -54,7 +54,7 @@ jobs:
           context: ./src/productcatalogservice
           platforms: linux/amd64
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: ${{ steps.meta-productcatalogservice.outputs.tags }}
       -
         name: Docker meta
         id: meta-currencyservice
@@ -69,7 +69,7 @@ jobs:
           context: ./src/currencyservice
           platforms: linux/amd64
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: ${{ steps.meta-currencyservice.outputs.tags }}
       -
         name: Docker meta
         id: meta-adservice
@@ -84,4 +84,4 @@ jobs:
           context: ./src/adservice
           platforms: linux/amd64
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: ${{ steps.meta-adservice.outputs.tags }}
