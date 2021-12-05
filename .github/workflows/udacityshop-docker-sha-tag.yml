@@ -32,9 +32,9 @@ jobs:
         with:
           # list of Docker images to use as base name for tags
           images: |
-            aramirezg/frontend
-            aramirezg/productcatalogservice
-            aramirezg/currencyservice
+            aramirezg/frontend,
+            aramirezg/productcatalogservice,
+            aramirezg/currencyservice,
             aramirezg/adservice
           # generate Docker tags based on the following events/attributes
           tags: |
