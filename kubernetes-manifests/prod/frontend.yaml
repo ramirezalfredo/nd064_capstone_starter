@@ -15,7 +15,7 @@ spec:
       serviceAccountName: default
       containers:
         - name: server
-          image: aramirezg/frontend:sha-cfb1041
+          image: aramirezg/frontend:sha-151d332
           ports:
           - containerPort: 8080
           readinessProbe:
