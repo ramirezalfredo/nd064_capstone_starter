@@ -24,7 +24,7 @@ spec:
           value: "9555"
         - name: DISABLE_TRACING
           value: "1"
-        - name: DISABLE_PROFILER
+        - name: DISABLE_STATS
           value: "1"
         resources:
           requests:
