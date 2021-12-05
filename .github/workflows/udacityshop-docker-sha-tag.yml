@@ -1,0 +1,103 @@
+name: Uda'CityShop [sha tag] - Package with Docker
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      -
+        name: Login to DockerHub
+        uses: docker/login-action@v1 
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      -
+        name: Docker meta frontend
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          # list of Docker images to use as base name for tags
+          images: |
+            aramirezg/frontend
+          # generate Docker tags based on the following events/attributes
+          tags: |
+            type=sha
+      -
+        name: Build and push frontend
+        uses: docker/build-push-action@v2
+        with:
+          context: ./src/frontend
+          platforms: linux/amd64
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+      -
+        name: Docker meta productcatalogservice
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          # list of Docker images to use as base name for tags
+          images: |
+            aramirezg/productcatalogservice
+          # generate Docker tags based on the following events/attributes
+          tags: |
+            type=sha
+      -
+        name: Build and push productcatalogservice
+        uses: docker/build-push-action@v2
+        with:
+          context: ./src/productcatalogservice
+          platforms: linux/amd64
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+      -
+        name: Docker meta currencyservice
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          # list of Docker images to use as base name for tags
+          images: |
+            aramirezg/currencyservice
+          # generate Docker tags based on the following events/attributes
+          tags: |
+            type=sha
+      -
+        name: Build and push currencyservice
+        uses: docker/build-push-action@v2
+        with:
+          context: ./src/currencyservice
+          platforms: linux/amd64
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+      -
+        name: Docker meta adservice
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          # list of Docker images to use as base name for tags
+          images: |
+            aramirezg/adservice
+          # generate Docker tags based on the following events/attributes
+          tags: |
+            type=sha
+      -
+        name: Build and push adservice
+        uses: docker/build-push-action@v2
+        with:
+          context: ./src/adservice
+          platforms: linux/amd64
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
